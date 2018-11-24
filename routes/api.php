@@ -16,3 +16,6 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/gestures', 'GestureController@getGestures');
+Route::post('/gestures', 'GestureController@create');
