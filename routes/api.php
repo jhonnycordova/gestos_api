@@ -19,3 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/gestures', 'GestureController@getGestures');
 Route::post('/gestures', 'GestureController@create');
+Route::post('/gestures-edit', 'GestureController@update');
+
+Route::get('/gestures-types', 'GestureTypeController@getGestureTypes');
+Route::post('/users', 'UserController@create');
+Route::post('/convertImage', 'UserController@convertImage');

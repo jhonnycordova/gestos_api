@@ -24,9 +24,26 @@ class GestureController extends Controller
         $gesture = Gesture::create([
             'name' => $request->input('name'),
             'action' => $request->input('action'),
-            'parameters' => $request->input('parameters')
+            'parameters' => $request->input('parameters'),
+            'gesture_type_id' => $request->input('gesture_type_id'),
         ]);
 
         return response()->json(['gesture' => $gesture, 'success' => 'Gesto creado con éxito'], 200);
     }
+
+    /**
+     * Create a new Gesture
+     */
+    public function update(Request $request)
+    {
+        $gesture = Gesture::find($request->input('id'));
+        $gesture->name = $request->input('name');
+        $gesture->action = $request->input('action');
+        $gesture->parameters = $request->input('parameters');
+
+        $gesture->save();
+
+        return response()->json(['gesture' => $gesture, 'success' => 'Gesto modificado con éxito'], 200);
+    }
+
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGesturesTable extends Migration
+class CreateGestureTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateGesturesTable extends Migration
      */
     public function up()
     {
-        Schema::create('gestures', function (Blueprint $table) {
+        Schema::create('gesture_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('parameters')->nullable();
-            $table->string('action')->nullable();
-            $table->unsignedInteger('gesture_type_id');
-            $table->foreign('gesture_type_id')->references('id')->on('gesture_types');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreateGesturesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gestures');
+        Schema::dropIfExists('gesture_types');
     }
 }
