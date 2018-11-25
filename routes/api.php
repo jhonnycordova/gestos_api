@@ -24,3 +24,4 @@ Route::post('/gestures-edit', 'GestureController@update');
 Route::get('/gestures-types', 'GestureTypeController@getGestureTypes');
 Route::post('/users', 'UserController@create');
 Route::post('/convertImage', 'UserController@convertImage');
+Route::get('/send/email', 'UserController@mail');

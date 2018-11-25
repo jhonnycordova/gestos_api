@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailable;
 
 class UserController extends Controller
 {
@@ -33,7 +35,14 @@ class UserController extends Controller
         $image = str_replace(' ', '+', $image);
         $imageName = 'image_' . time() . '.' . $image_extension[1]; //generating unique file name;
         Storage::disk('public')->put($imageName, base64_decode($image));
-       
-        return response()->json(['url_image' => 'https://c6204e6a.ngrok.io/storage/'.$imageName], 200);
+        return response()->json(['url_image' => 'https://33e2b156.ngrok.io/storage/' . $imageName], 200);
+    }
+
+    public function mail()
+    {
+        $name = 'Javiera';
+        Mail::to('javiera@gmail.com')->send(new SendMailable($name));
+
+        return response()->json(['enviado', true], 200);
     }
 }
