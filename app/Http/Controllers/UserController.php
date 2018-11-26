@@ -35,7 +35,7 @@ class UserController extends Controller
         $image = str_replace(' ', '+', $image);
         $imageName = 'image_' . time() . '.' . $image_extension[1]; //generating unique file name;
         Storage::disk('public')->put($imageName, base64_decode($image));
-        return response()->json(['url_image' => 'https://33e2b156.ngrok.io/storage/' . $imageName], 200);
+        return response()->json(['url_image' => ' http://gestos.creandolo.cl/storage/' . $imageName], 200);
     }
 
     public function mail()
