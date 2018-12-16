@@ -6,24 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
+use App\User;
 
 class UserController extends Controller
 {
-    /**
-     * Create an user
-     */
-    public function create(Request $request)
-    {
-        $gesture = Gesture::create([
-            'name' => $request->input('name'),
-            'action' => $request->input('action'),
-            'parameters' => $request->input('parameters'),
-            'gesture_type_id' => $request->input('gesture_type_id'),
-        ]);
-
-        return response()->json(['gesture' => $gesture, 'success' => 'Gesto creado con éxito'], 200);
-    }
-
     /**
      * Convert an image from base64
      */
@@ -35,7 +21,7 @@ class UserController extends Controller
         $image = str_replace(' ', '+', $image);
         $imageName = 'image_' . time() . '.' . $image_extension[1]; //generating unique file name;
         Storage::disk('public')->put($imageName, base64_decode($image));
-        return response()->json(['url_image' => ' http://gestos.creandolo.cl/storage/' . $imageName], 200);
+        return response()->json(['url_image' => 'https://a2cfc1ef.ngrok.io/storage/' . $imageName], 200);
     }
 
     public function mail()
@@ -44,5 +30,26 @@ class UserController extends Controller
         Mail::to('javiera@gmail.com')->send(new SendMailable($name));
 
         return response()->json(['enviado', true], 200);
+    }
+
+    /**
+     * GEt The user
+     */
+    public function getUser()
+    {
+        $user = User::all()->first();
+        return response()->json(['user' => $user], 200);
+    }
+
+    /**
+     * Create an user
+     */
+    public function store(Request $request)
+    {
+        $user = new User();
+        $user->name = $request->input('nombre');
+        $user->url = $request->input('url');
+        $user->save();
+        return response()->json(['user' => $user], 200);
     }
 }
